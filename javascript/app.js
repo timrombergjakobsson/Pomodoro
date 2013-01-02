@@ -1,11 +1,26 @@
-angular.module("pomodoro", []);
+angular.module("pomodoro", [])
+.filter('countdown', function () {
+  return function (currentTime, endTime) {
+    if(currentTime >= endTime) {
+      return 0;
+    }
+    return endTime - currentTime;
+  };
+});
 
-function mainCtrl($scope) {
+function mainCtrl($scope, $timeout) {
   $scope.timeRemaining = 0;
   $scope.pomodoro = function () {
-		var endtime = new Date();
-		endtime = endtime.setMinutes(endtime.getMinutes() + 25);
-    $scope.current = {remainingTime : runtime,
-											startTime : new Date() };
-  };  
+		var endTime = new Date();
+		endTime.setMinutes(endTime.getMinutes() + 25);
+    $scope.current = {
+                        endTime: endTime
+                    };
+      $timeout($scope.updateTime, 1000);
+  };
+
+  $scope.updateTime = function () {
+    $scope.now = Date.now();
+    $timeout($scope.updateTime, 1000);
+  };
 }
