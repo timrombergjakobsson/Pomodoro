@@ -5,9 +5,10 @@
 </head>
 <body ng-app="pomodoro">
 <div class="wrapper" ng-controller="mainCtrl">
-<div class="timer"><span>{{timeRemaining}}</span>
+  <div class="timer">
+    <span>{{now | countdown:current.endTime | date:'mm:ss'}}</span>
   <div class="timer_buttons">
-      <input class="" value="Start Pomodoro" ng-click="pomodoro()" type="button">
+    <input class="" value="Start Pomodoro" ng-click="pomodoro()" type="button">
   </div>
 </div>
 </div>
